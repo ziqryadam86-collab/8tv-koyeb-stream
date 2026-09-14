@@ -20,8 +20,8 @@ do
   ffmpeg \
   -decryption_key 1a05bebf706408431a390c3f9f40f410:89c5ff9f8e65c7fe966afbd2f9128e5f \
   -use_timeline 1 \
-  -live_start_index -3 \
-  -reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5 \
+  -live_start_index -5 \
+  -reconnect 1 -reconnect_at_eof 1 -reconnect_streamed 1 -reconnect_delay_max 5 \
   -err_detect ignore_err \
   -headers "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"$'\r\n'"Origin: https://sooka.my"$'\r\n'"Referer: https://sooka.my/"$'\r\n' \
   -i "https://linearjitp-playback.astro.com.my/dash-wv/linear/509/default_ott.mpd" \
