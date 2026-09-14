@@ -15,9 +15,10 @@ nginx
 # Perulangan Penstriman
 while true
 do
-  echo "Memulakan penstriman 8TV menggunakan yt-dlp + FFmpeg..."
+  echo "Memulakan penstriman 8TV..."
 
   yt-dlp \
+    --allow-unplayable-formats \
     --add-header "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
     --add-header "Origin: https://sooka.my" \
     --add-header "Referer: https://sooka.my/" \
