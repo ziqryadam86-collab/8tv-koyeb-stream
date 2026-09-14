@@ -17,7 +17,9 @@ while true
 do
   echo "Memulakan penstriman 8TV (Astro Source)..."
   
-  ffmpeg -re \
+  ffmpeg \
+  -reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5 \
+  -err_detect ignore_err \
   -headers "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"$'\r\n'"Origin: https://sooka.my"$'\r\n'"Referer: https://sooka.my/"$'\r\n' \
   -c:v decryption_key 1a05bebf706408431a390c3f9f40f410:89c5ff9f8e65c7fe966afbd2f9128e5f \
   -i "https://linearjitp-playback.astro.com.my/dash-wv/linear/509/default_ott.mpd" \
@@ -36,3 +38,4 @@ do
   echo "Stream terputus! Sambung semula dalam 5 saat..."
   sleep 5
 done
+
