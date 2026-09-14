@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Configuration port Nginx ke 10000 untuk Render
@@ -6,6 +5,9 @@ sed -i 's/80/10000/g' /etc/nginx/sites-available/default
 
 # Tambah Header CORS ke dalam Nginx
 sed -i '/location \/ {/a \        add_header Access-Control-Allow-Origin *;\n        add_header Access-Control-Allow-Methods "GET, OPTIONS";\n        add_header Access-Control-Allow-Headers "*";' /etc/nginx/sites-available/default
+
+# Pastikan folder sasaran wujud
+mkdir -p /var/www/html/8tv-live-tv
 
 # Jalankan Nginx
 nginx
@@ -20,14 +22,14 @@ do
   -c:v decryption_key 1a05bebf706408431a390c3f9f40f410:89c5ff9f8e65c7fe966afbd2f9128e5f \
   -i "https://linearjitp-playback.astro.com.my/dash-wv/linear/509/default_ott.mpd" \
   -map 0:v:0 \
-  -map 0:m:language:may \
+  -map 0:a:0 \
   -vf "scale=640:360,fps=15" \
   -c:v libx264 -preset ultrafast -b:v 400k -maxrate 400k -bufsize 800k \
   -c:a aac -b:a 64k \
   -f hls \
-  -hls_time 10 \
-  -hls_list_size 10 \
-  -hls_flags delete_segments \
+  -hls_time 6 \
+  -hls_list_size 5 \
+  -hls_flags delete_segments+omit_endlist \
   -hls_segment_filename "/var/www/html/8tv-live-tv/%d.ts" \
   /var/www/html/8tv-live-tv/index.m3u8
 
