@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Configuration port Nginx ke 10000 untuk Render
+# Konfigurasi port Nginx ke 10000 untuk Render
 sed -i 's/80/10000/g' /etc/nginx/sites-available/default
 
 # Tambah Header CORS ke dalam Nginx
@@ -15,17 +15,12 @@ nginx
 # Perulangan Penstriman
 while true
 do
-  echo "Memulakan penstriman 8TV..."
+  echo "Memulakan penstriman 8TV via Direct FFmpeg Header..."
 
-  yt-dlp \
-    --allow-unplayable-formats \
-    --add-header "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
-    --add-header "Origin: https://sooka.my" \
-    --add-header "Referer: https://sooka.my/" \
-    -o - "https://linearjitp-playback.astro.com.my/dash-wv/linear/509/default_ott.mpd" | \
   ffmpeg \
+    -headers "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"$'\r\n'"Origin: https://sooka.my"$'\r\n'"Referer: https://sooka.my/"$'\r\n' \
     -decryption_key 1a05bebf706408431a390c3f9f40f410:89c5ff9f8e65c7fe966afbd2f9128e5f \
-    -i pipe:0 \
+    -i "https://linearjitp-playback.astro.com.my/dash-wv/linear/509/default_ott.mpd" \
     -map 0:v:0 \
     -map 0:a:0 \
     -vf "scale=640:360,fps=15" \
